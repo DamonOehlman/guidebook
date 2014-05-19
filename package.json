@@ -33,9 +33,10 @@
     "altpub-toc": "~0.1",
     "async": "~0.9",
     "browserify-cdn": "~0.3",
+    "brucedown": "~0.1",
     "debug": "~0.8",
     "express": "^3",
-    "gendocs": "~0.9",
+    "gendocs": "~0.10",
     "jade": "^1",
     "out": "~0.5"
   }
