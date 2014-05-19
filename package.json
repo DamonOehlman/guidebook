@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "description": "Use your leanpub sources to write an interactive guidebook",
   "main": "index.js",
+  "preferGlobal": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "gendocs": "gendocs > README.md"
@@ -30,6 +31,11 @@
   "homepage": "https://github.com/DamonOehlman/guidebook",
   "dependencies": {
     "altpub-toc": "~0.1",
-    "browserify-cdn": "~0.3"
+    "async": "~0.9",
+    "browserify-cdn": "~0.3",
+    "debug": "~0.8",
+    "express": "^3",
+    "gendocs": "~0.9",
+    "out": "~0.5"
   }
 }
