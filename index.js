@@ -37,7 +37,7 @@ module.exports = function(opts) {
   var port = (opts || {}).port || process.env.NODE_PORT || 3000;
 
   function createServer(entries, callback) {
-    cdn.app.use('/guidebook', require('./pages/router.js')(entries).middleware);
+    cdn.app.use('/guidebook', require('./pages/router.js')(entries, opts).middleware);
     debug('loaded toc, entries: ', entries);
 
     callback(null, http.createServer(cdn.app));

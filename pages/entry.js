@@ -1,8 +1,8 @@
 var jade = require('jade');
 
-module.exports = function(entries, opts) {
+module.exports = function(entry, opts) {
   return function(req, res) {
-    jade.renderFile(__dirname + '/main.jade', { entries: entries }, function(err, html) {
+    jade.renderFile(__dirname + '/entry.jade', { entry: entry }, function(err, html) {
       if (err) {
         res.writeHeader(500);
         return res.end(err.toString());
