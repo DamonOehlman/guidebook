@@ -1,0 +1,34 @@
+{
+  "name": "guidebook",
+  "version": "0.0.0",
+  "description": "Use your leanpub sources to write an interactive guidebook",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "bin": {
+    "guidebook": "./bin/guidebook"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DamonOehlman/guidebook.git"
+  },
+  "keywords": [
+    "guide",
+    "tutorial",
+    "leanpub",
+    "markdown",
+    "interactive",
+    "example"
+  ],
+  "author": "Damon Oehlman <damon.oehlman@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DamonOehlman/guidebook/issues"
+  },
+  "homepage": "https://github.com/DamonOehlman/guidebook",
+  "dependencies": {
+    "altpub-toc": "~0.1",
+    "browserify-cdn": "~0.3"
+  }
+}
