@@ -1,6 +1,7 @@
 var async = require('async');
 var brucedown = require('brucedown');
 var debug = require('debug')('guidebook');
+var express = require('express');
 var fs = require('fs');
 var path = require('path');
 var toc = require('altpub-toc');
@@ -40,6 +41,7 @@ module.exports = function(opts) {
 
   function createServer(entries, callback) {
     cdn.app.use('/guidebook', require('./pages/router.js')(entries, bookPath, opts).middleware);
+    cdn.app.use('/guidebook', express.static(__dirname + '/public'));
     debug('creating server to serve entries: ', entries);
 
     callback(null, http.createServer(cdn.app));

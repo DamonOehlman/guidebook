@@ -2,5 +2,10 @@ doctype html
 html
 	head
 		title Guidebook Entry
+		link(rel="stylesheet", href="guidebook.css")
+		link(rel="stylesheet", href="syntax/github.css")
 
-	body!= entry.html
+	body
+		div.content!= entry.html
+
+		script(src="guidebook.js")
