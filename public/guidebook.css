@@ -1,1 +1,24 @@
+body {
+  height: 100%;
+  margin: 0;
+}
 
+div.guidebook-entry {
+  display: flex;
+  height: 100%;
+}
+
+div.content {
+  flex: 1;
+}
+
+div.play {
+  flex: 1;
+}
+
+div.highlight {
+  border: 1px solid black;
+}
+
+div.highlight ~ button {
+}

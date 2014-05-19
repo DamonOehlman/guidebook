@@ -6,6 +6,8 @@ html
 		link(rel="stylesheet", href="syntax/github.css")
 
 	body
-		div.content!= entry.html
+		div.guidebook-entry
+			div.content!= entry.html
+			div.play
 
 		script(src="guidebook.js")
