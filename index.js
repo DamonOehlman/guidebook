@@ -1,7 +1,10 @@
 var async = require('async');
+var debug = require('debug')('guidebook');
 var fs = require('fs');
 var path = require('path');
 var toc = require('altpub-toc');
+var http = require('http');
+var out = require('out');
 
 /**
   # guidebook
@@ -26,11 +29,43 @@ var toc = require('altpub-toc');
 
 module.exports = function(opts) {
   var cdn = require('browserify-cdn');
+  var server;
 
   // initialise the basepath
   var basePath = (opts || {}).basePath || process.cwd();
   var bookPath = path.resolve(basePath, 'manuscript');
+  var port = (opts || {}).port || process.env.NODE_PORT || 3000;
 
-  toc.load(path.join(bookPath, 'Book.txt'), function(err, entries) {
-  });
+  function createServer(entries, callback) {
+    cdn.app.use('/guidebook', require('./pages/router.js')(entries).middleware);
+    debug('loaded toc, entries: ', entries);
+
+    callback(null, http.createServer(cdn.app));
+  }
+
+  function handleInitComplete(err, server) {
+    var addr = (!err) && server.address();
+
+    if (err) {
+      return out.error(err);
+    }
+
+    out('server running at: http://{0}:{1}/guidebook/', addr.address, port);
+  }
+
+  function startServer(server, callback) {
+    server.listen(port, function(err) {
+      callback(err, server);
+    });
+  }
+
+  async.waterfall([
+    function(callback) {
+      callback(null, path.join(bookPath, 'Book.txt'));
+    },
+
+    toc.load,
+    createServer,
+    startServer
+  ], handleInitComplete);
 };
