@@ -19,7 +19,7 @@ module.exports = function(entries, bookPath, opts) {
       'Content-Type': 'application/javascript'
     });
 
-    b.bundle().pipe(res);
+    b.bundle({ debug: true }).pipe(res);
   });
 
   return router;
