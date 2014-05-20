@@ -10,7 +10,23 @@ h1 {
   margin: 0;
 }
 
+div.menu {
+  position: fixed;
+  padding: 8px;
+}
+
+div.menu a {
+  color: white;
+}
+
+div.toc {
+  position: absolute;
+  display: none;
+}
+
 div.guidebook-entry {
+  background: linear-gradient(to bottom, #333, #aaa 80%, #ccc);
+
   display: -webkit-flex;
   display: -ms-flex;
   display: -moz-flex;
@@ -21,9 +37,11 @@ div.guidebook-entry {
 }
 
 div.content {
+  background: white;
   flex: 1 1;
   -ms-flex: 1 1;
 
+  margin-top: 40px;
   padding: 10px;
   overflow-y: scroll;
 }
@@ -43,7 +61,6 @@ div.play {
   height: 100%;
   transition: all 1s linear 0s;
   padding: 20px;
-  background: linear-gradient(to bottom, #333, #aaa 80%, #ccc)
 }
 
 div.play.active {
@@ -67,7 +84,7 @@ div.highlight pre {
 
 /* font selection */
 
-div.content {
+body {
   font-family: 'Roboto Slab';
   font-weight: 300;
 }
