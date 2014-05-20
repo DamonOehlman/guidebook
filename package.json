@@ -1,6 +1,6 @@
 {
   "name": "guidebook",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Use your leanpub sources to write an interactive guidebook",
   "main": "index.js",
   "preferGlobal": true,
