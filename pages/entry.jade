@@ -9,14 +9,14 @@ html
 		div.menu
 			a(href="#" data-action="toc.show") Table of Contents
 
-		div.toc
-			ul
-				each entry in entries
-					li
-						a(href= entry.name)= entry.name
-
 		div.guidebook-entry
-			div.content!= entry.html
+			div.content
+				ul.toc
+					each entry in entries
+						li
+							a(href= entry.name)= entry.name
+
+				div.entry!= entry.html
 			div.play
 
 		script(src="guidebook.js")

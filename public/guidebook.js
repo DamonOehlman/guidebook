@@ -1,6 +1,9 @@
+var actionman = require('actionman');
+var eve = require('eve');
 var qsa = require('fdom/qsa');
 var createSandbox = require('browser-module-sandbox');
 var crel = require('crel');
+var toc = document.querySelector('.toc');
 var sandbox;
 
 function initCodeSection(el) {
@@ -49,4 +52,9 @@ function prepareClickHandler(el) {
   };
 }
 
+eve.on('guidebook.toc.show', function() {
+  toc.classList.toggle('active');
+});
+
 qsa('div.highlight').forEach(initCodeSection);
+actionman('guidebook');

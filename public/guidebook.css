@@ -19,9 +19,23 @@ div.menu a {
   color: white;
 }
 
-div.toc {
-  position: absolute;
-  display: none;
+ul.toc {
+  background: white;
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: 0px;
+
+  transition: all 0.5s ease-in-out;
+}
+
+ul.toc li a {
+  color: navy;
+  text-decoration: none;
+}
+
+ul.toc.active {
+  height: auto;
 }
 
 div.guidebook-entry {
