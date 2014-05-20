@@ -9,7 +9,7 @@ module.exports = function(entries, bookPath, opts) {
 
   // page for each of the entries
   entries.forEach(function(entry) {
-    router.get('/' + entry.name, require('./entry')(entry, bookPath, opts));
+    router.get('/' + entry.name, require('./entry')(entry, entries, bookPath, opts));
   });
 
   router.get('/guidebook.js', function(req, res) {
