@@ -1,6 +1,7 @@
 var qsa = require('fdom/qsa');
 var createSandbox = require('browser-module-sandbox');
 var crel = require('crel');
+var sandbox;
 
 function initCodeSection(el) {
   var runButton = crel('button', 'run');
@@ -18,10 +19,17 @@ function initCodeSection(el) {
 }
 
 function prepareClickHandler(el) {
+  var container = document.querySelector('div.play');
+
   return function(evt) {
-    var sandbox = createSandbox({
+    // if we already have a sandbox, then clean it up
+    if (sandbox && sandbox.iframe) {
+      sandbox.iframe.remove();
+    }
+
+    sandbox = createSandbox({
       cdn: 'http://localhost:3000',
-      container: document.querySelector('div.play'),
+      container: container,
       iframeStyle: 'body, html { height: 100%; width: 100%; }',
       cacheOpts: {
         inMemory: true
@@ -34,10 +42,9 @@ function prepareClickHandler(el) {
       .on('bundleStart', function() {
       })
       .on('bundleEnd', function(html) {
-        console.log('bundling done: ', html);
+        container.classList.add('active');
       });
 
-    console.log(el.innerText);
     sandbox.bundle(el.innerText);
   };
 }
