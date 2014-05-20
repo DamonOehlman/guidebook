@@ -11,19 +11,42 @@ h1 {
 }
 
 div.guidebook-entry {
+  display: -webkit-flex;
+  display: -ms-flex;
+  display: -moz-flex;
   display: flex;
+
   height: 100%;
   overflow: hidden;
 }
 
 div.content {
-  flex: 1;
+  flex: 1 1;
+  -ms-flex: 1 1;
+
   padding: 10px;
   overflow-y: scroll;
 }
 
+div.content blockquote {
+  border: 1px solid #eee;
+  border-radius: 4px;
+  background: #ddd;
+  margin: 10px 0;
+  padding: 0px 15px;
+}
+
 div.play {
-  flex: 1;
+  flex: 1 1;
+  -ms-flex: 1 1;
+
+  height: 100%;
+  transition: all 1s linear 0s;
+  padding: 20px;
+  background: linear-gradient(to bottom, #333, #aaa 80%, #ccc)
+}
+
+div.play.active {
 }
 
 div.highlight {
