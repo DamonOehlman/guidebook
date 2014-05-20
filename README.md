@@ -21,6 +21,18 @@ the component pieces were available to make this possible.
 Once you have installed guidebook on your local machine, then you should be
 able to run the `guidebook` command in a leanpub compatible folder.
 
+## Included Fonts
+
+Please note that the guidebook default rendering and installable module
+includes the following fonts sourced from
+[Google Fonts](http://www.google.com/fonts):
+
+- Inconsolata (Ralph Levein - SIL Open Font License, 1.1)
+- Roboto Slab (Christian Robertson - Apache 2.0)
+- Source Code Pro (Paul D. Hunt  - SIL Open Font License, 1.1)
+
+Fonts are distributed under their original licenses.
+
 ## License(s)
 
 ### ISC
