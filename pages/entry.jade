@@ -6,6 +6,15 @@ html
 		link(rel="stylesheet", href="syntax/default.css")
 
 	body
+		div.menu
+			a(href="#" data-action="toc.show") Table of Contents
+
+		div.toc
+			ul
+				each entry in entries
+					li
+						a(href= entry.name)= entry.name
+
 		div.guidebook-entry
 			div.content!= entry.html
 			div.play

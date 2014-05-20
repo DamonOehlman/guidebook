@@ -1,8 +1,13 @@
 var jade = require('jade');
 
-module.exports = function(entry) {
+module.exports = function(entry, entries) {
   return function(req, res) {
-    jade.renderFile(__dirname + '/entry.jade', { entry: entry }, function(err, html) {
+    var data = {
+      entries: entries,
+      entry: entry
+    };
+
+    jade.renderFile(__dirname + '/entry.jade', data, function(err, html) {
       if (err) {
         res.writeHeader(500);
         return res.end(err.toString());
