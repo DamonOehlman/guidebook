@@ -1,15 +1,25 @@
-body {
+@import "fonts/fonts.css";
+
+html, body {
   height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+
+h1 {
   margin: 0;
 }
 
 div.guidebook-entry {
   display: flex;
   height: 100%;
+  overflow: hidden;
 }
 
 div.content {
   flex: 1;
+  padding: 10px;
+  overflow-y: scroll;
 }
 
 div.play {
@@ -17,8 +27,36 @@ div.play {
 }
 
 div.highlight {
-  border: 1px solid black;
+  background: #efefef;
+  border: 1px solid silver;
+  border-radius: 4px;
+  padding: 10px;
+  overflow-x: auto;
 }
 
 div.highlight ~ button {
+  margin-top: 10px;
 }
+
+div.highlight pre {
+  margin: 0;
+}
+
+/* font selection */
+
+div.content {
+  font-family: 'Roboto Slab';
+  font-weight: 300;
+}
+
+code, pre {
+  font-family: 'Source Code Pro';
+}
+
+pre {
+  font-size: 0.90em;
+}
+
+button {
+}
+

@@ -28,6 +28,18 @@ var out = require('out');
   Once you have installed guidebook on your local machine, then you should be
   able to run the `guidebook` command in a leanpub compatible folder.
 
+  ## Included Fonts
+
+  Please note that the guidebook default rendering and installable module
+  includes the following fonts sourced from
+  [Google Fonts](http://www.google.com/fonts):
+
+  - Inconsolata (Ralph Levein - SIL Open Font License, 1.1)
+  - Roboto Slab (Christian Robertson - Apache 2.0)
+  - Source Code Pro (Paul D. Hunt  - SIL Open Font License, 1.1)
+
+  Fonts are distributed under their original licenses.
+
 **/
 
 module.exports = function(opts) {
@@ -42,14 +54,14 @@ module.exports = function(opts) {
   function createServer(entries, callback) {
     cdn.app.use('/guidebook', require('./pages/router.js')(entries, bookPath, opts).middleware);
     cdn.app.use('/guidebook', express.static(__dirname + '/public'));
-    debug('creating server to serve entries: ', entries);
+    debug('creating server to serve ' + entries.length + ' entries');
 
     callback(null, http.createServer(cdn.app));
   }
 
   function genDocs(entries, callback) {
     async.map(entries, genDocsForEntry, function(err, entries) {
-      debug('completed generating docs for all entries', err, entries);
+      debug('completed generating docs for ' + entries.length + ' entries');
       callback(err, entries);
     });
   }

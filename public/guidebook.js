@@ -5,8 +5,10 @@ var crel = require('crel');
 function initCodeSection(el) {
   var runButton = crel('button', 'run');
 
+  el.classList.add('codehilite');
+
   if (el.nextElementSibling) {
-    el.parentNode.insertBefore(el.nextElementSibling, runButton);
+    el.parentNode.insertBefore(runButton, el.nextElementSibling);
   }
   else {
     el.parentNode.appendChild(runButton);
@@ -35,6 +37,7 @@ function prepareClickHandler(el) {
         console.log('bundling done: ', html);
       });
 
+    console.log(el.innerText);
     sandbox.bundle(el.innerText);
   };
 }
