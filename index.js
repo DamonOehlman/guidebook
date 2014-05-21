@@ -5,6 +5,7 @@ var debug = require('debug')('guidebook');
 var express = require('express');
 var fs = require('fs');
 var path = require('path');
+var parseSections = require('altpub-sections');
 var toc = require('altpub-toc');
 var gendocs = require('gendocs');
 var http = require('http');
@@ -71,7 +72,7 @@ module.exports = function(opts, callback) {
     async.map(
       entries,
       function(entry, itemCb) {
-        marked(entry.markdown, {}, function(err, html) {
+        marked(parseSections(entry.markdown), {}, function(err, html) {
           entry.html = err ? '' : html;
           itemCb(err, entry);
         });
