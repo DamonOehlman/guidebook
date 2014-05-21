@@ -5,7 +5,12 @@ var createEditor = require('javascript-editor');
 var createSandbox = require('browser-module-sandbox');
 var crel = require('crel');
 var toc = document.querySelector('.toc');
+var demoContainer = document.querySelector('div.play');
 var sandbox;
+
+function closeDemo() {
+  demoContainer.classList.remove('active');
+}
 
 function initCodeSection(el) {
   var runButton = crel('button', 'run');
@@ -31,11 +36,10 @@ function initCodeSection(el) {
     viewportMargin: Infinity
   });
 
-  runButton.addEventListener('click', prepareClickHandler(pre));
+  runButton.addEventListener('click', prepareClickHandler(pre, editor));
 }
 
-function prepareClickHandler(el) {
-  var container = document.querySelector('div.play');
+function prepareClickHandler(el, editor) {
   var prelude = [
     'var console = require("demo-console");',
     ''
@@ -49,7 +53,7 @@ function prepareClickHandler(el) {
 
     sandbox = createSandbox({
       cdn: 'http://localhost:3000',
-      container: container,
+      container: demoContainer,
       iframeStyle: 'body, html { height: 100%; width: 100%; }',
       cacheOpts: {
         inMemory: true
@@ -62,10 +66,10 @@ function prepareClickHandler(el) {
       .on('bundleStart', function() {
       })
       .on('bundleEnd', function(html) {
-        container.classList.add('active');
+        demoContainer.classList.add('active');
       });
 
-    sandbox.bundle(prelude + el.innerText);
+    sandbox.bundle(prelude + editor.getValue());
   };
 }
 
