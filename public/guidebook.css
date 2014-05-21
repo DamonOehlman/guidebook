@@ -39,7 +39,7 @@ ul.toc.active {
 }
 
 div.guidebook-entry {
-  background: linear-gradient(to bottom, #333, #aaa 80%, #ccc);
+  background: linear-gradient(to bottom, #333, #ccc 70%, #f8f8f8);
 
   display: -webkit-flex;
   display: -ms-flex;
@@ -57,7 +57,7 @@ div.content {
 
   margin-top: 40px;
   padding: 10px;
-  overflow-y: scroll;
+  overflow-y: auto;
 }
 
 div.content blockquote {
@@ -114,3 +114,13 @@ pre {
 button {
 }
 
+/* code highlighting styles */
+
+.CodeMirror {
+  border: 1px solid #eee;
+  height: auto;
+}
+.CodeMirror-scroll {
+  overflow-y: hidden;
+  overflow-x: auto;
+}

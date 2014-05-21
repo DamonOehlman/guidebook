@@ -1,2 +1,18 @@
 #!/usr/bin/env node
-require('../')();
+var guidebook = require('..');
+var out = require('out');
+var port = parseInt(process.env.NODE_PORT, 10) || 3000;
+
+guidebook({}, function(err, server) {
+  if (err) {
+    return out.error(err);
+  }
+
+  server.listen(port, function(err) {
+    if (err) {
+      out.error('Could not bind server to port: ' + port);
+    }
+
+    out('server running at http://{0}:{1}/guidebook/', 'localhost', port);
+  });
+});

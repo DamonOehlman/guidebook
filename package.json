@@ -45,6 +45,7 @@
     "gendocs": "~0.10",
     "jade": "^1",
     "javascript-editor": "~0.2",
+    "marked": "^0.3.2",
     "out": "~0.5"
   }
 }

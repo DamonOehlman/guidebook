@@ -1,6 +1,7 @@
 var actionman = require('actionman');
 var eve = require('eve');
 var qsa = require('fdom/qsa');
+var createEditor = require('javascript-editor');
 var createSandbox = require('browser-module-sandbox');
 var crel = require('crel');
 var toc = document.querySelector('.toc');
@@ -8,21 +9,37 @@ var sandbox;
 
 function initCodeSection(el) {
   var runButton = crel('button', 'run');
+  var container = crel('div', { class: 'editor' });
+  var pre = el.parentNode;
+  var editor;
 
-  el.classList.add('codehilite');
+  el.parentNode.removeChild(el);
 
-  if (el.nextElementSibling) {
-    el.parentNode.insertBefore(runButton, el.nextElementSibling);
+  if (pre.nextElementSibling) {
+    pre.parentNode.insertBefore(runButton, pre.nextElementSibling);
   }
   else {
-    el.parentNode.appendChild(runButton);
+    pre.parentNode.appendChild(runButton);
   }
 
-  runButton.addEventListener('click', prepareClickHandler(el));
+  pre.parentNode.insertBefore(container, runButton);
+
+  // create the editor
+  editor = createEditor({
+    container: container,
+    value: el.innerText,
+    viewportMargin: Infinity
+  });
+
+  runButton.addEventListener('click', prepareClickHandler(pre));
 }
 
 function prepareClickHandler(el) {
   var container = document.querySelector('div.play');
+  var prelude = [
+    'var console = require("demo-console");',
+    ''
+  ].join('\n');
 
   return function(evt) {
     // if we already have a sandbox, then clean it up
@@ -48,7 +65,7 @@ function prepareClickHandler(el) {
         container.classList.add('active');
       });
 
-    sandbox.bundle(el.innerText);
+    sandbox.bundle(prelude + el.innerText);
   };
 }
 
@@ -56,5 +73,5 @@ eve.on('guidebook.toc.show', function() {
   toc.classList.toggle('active');
 });
 
-qsa('div.highlight').forEach(initCodeSection);
+qsa('code.lang-js').forEach(initCodeSection);
 actionman('guidebook');

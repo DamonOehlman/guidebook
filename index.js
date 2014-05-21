@@ -1,5 +1,6 @@
 var async = require('async');
 var brucedown = require('brucedown');
+var marked = require('marked');
 var debug = require('debug')('guidebook');
 var express = require('express');
 var fs = require('fs');
@@ -42,7 +43,7 @@ var out = require('out');
 
 **/
 
-module.exports = function(opts) {
+module.exports = function(opts, callback) {
   var cdn = require('browserify-cdn');
   var server;
 
@@ -56,7 +57,7 @@ module.exports = function(opts) {
     cdn.app.use('/guidebook', express.static(__dirname + '/public'));
     debug('creating server to serve ' + entries.length + ' entries');
 
-    callback(null, http.createServer(cdn.app));
+    callback(null, http.createServer(cdn.app), cdn);
   }
 
   function genDocs(entries, callback) {
@@ -70,10 +71,10 @@ module.exports = function(opts) {
     async.map(
       entries,
       function(entry, itemCb) {
-        brucedown(entry.markdown, function(err, html) {
+        marked(entry.markdown, {}, function(err, html) {
           entry.html = err ? '' : html;
           itemCb(err, entry);
-        })
+        });
       },
       callback
     );
@@ -96,20 +97,8 @@ module.exports = function(opts) {
     });
   }
 
-  function handleInitComplete(err, server) {
-    var addr = (!err) && server.address();
-
-    if (err) {
-      return out.error(err);
-    }
-
-    out('server running at: http://{0}:{1}/guidebook/', addr.address, port);
-  }
-
-  function startServer(server, callback) {
-    server.listen(port, function(err) {
-      callback(err, server);
-    });
+  function watchContent(entries, callback) {
+    callback(null, entries);
   }
 
   async.waterfall([
@@ -120,7 +109,7 @@ module.exports = function(opts) {
     toc.load,
     genDocs,
     genHTML,
-    createServer,
-    startServer
-  ], handleInitComplete);
+    watchContent,
+    createServer
+  ], callback || function() {});
 };
