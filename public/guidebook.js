@@ -1,12 +1,14 @@
 var actionman = require('actionman');
 var eve = require('eve');
 var qsa = require('fdom/qsa');
+var marked = require('marked');
 var createEditor = require('javascript-editor');
 var createSandbox = require('browser-module-sandbox');
 var crel = require('crel');
 var toc = document.querySelector('.toc');
 var demoContainer = document.querySelector('div.play');
 var sandbox;
+var errorBox;
 
 function closeDemo() {
   demoContainer.classList.remove('active');
@@ -53,6 +55,12 @@ function prepareClickHandler(el, editor) {
       sandbox.iframe.remove();
     }
 
+    // if we had an errorbox remove it
+    if (errorBox) {
+      demoContainer.removeChild(errorBox);
+      errorBox = undefined;
+    }
+
     sandbox = createSandbox({
       cdn: 'http://localhost:3000',
       container: demoContainer,
@@ -71,6 +79,12 @@ function prepareClickHandler(el, editor) {
       .on('bundleEnd', function(html) {
         demoContainer.classList.remove('loading');
         demoContainer.classList.add('active');
+      })
+      .on('bundleError', function(err) {
+        var message = (err instanceof Error) ? err.message : err;
+
+        demoContainer.classList.remove('loading');
+        demoContainer.appendChild(errorBox = crel('pre', { class: 'bundleError' }, message));
       });
 
     sandbox.bundle(prelude + editor.getValue());

@@ -70,6 +70,12 @@ div.play {
 div.play.active {
 }
 
+div.play pre.bundleError {
+  font-family: 'Source Code Pro';
+  color: #B35553;
+  margin: 0;
+}
+
 div.highlight {
   background: #efefef;
   border: 1px solid silver;
