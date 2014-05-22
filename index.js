@@ -68,37 +68,50 @@ module.exports = function(opts, callback) {
     });
   }
 
-  function genHTML(entries, callback) {
-    async.map(
-      entries,
-      function(entry, itemCb) {
-        marked(parseSections(entry.markdown), {}, function(err, html) {
-          entry.html = err ? '' : html;
-          itemCb(err, entry);
-        });
-      },
-      callback
-    );
+  function genDocsForEntry(entry, callback) {
+    reloadEntry({
+      name: entry,
+      filename: path.join(bookPath, entry)
+    }, callback);
   }
 
-  function genDocsForEntry(entry, callback) {
-    fs.readFile(path.join(bookPath, entry), { encoding: 'utf8' }, function(err, content) {
+  function reloadEntry(entry, callback) {
+    fs.readFile(entry.filename, { encoding: 'utf8' }, function(err, content) {
       if (err) {
         return callback(err);
       }
 
-      debug('running gendocs for file: ' + entry);
+      debug('running gendocs for file: ' + entry.name);
       gendocs({ input: content, cwd: bookPath }, function(err, markdown) {
-        debug('gendocs complete for file: ' + entry);
-        callback(err, {
-          name: entry,
-          markdown: markdown
-        });
+        debug('gendocs complete for file: ' + entry.name);
+
+        // set the markdown for the entry
+        entry.markdown = markdown;
+
+        // generate the html
+        entry.html = markdown && marked(parseSections(markdown));
+
+        // trigger the callback
+        callback(err, entry);
       });
     });
   }
 
   function watchContent(entries, callback) {
+    // setup all the watchers
+    entries.forEach(function(entry) {
+      var timer;
+
+      fs.watch(entry.filename, function(evt, filename) {
+        if (evt === 'change') {
+          clearTimeout(timer);
+          timer = setTimeout(function() {
+            reloadEntry(entry, function() {});
+          }, 10);
+        }
+      });
+    });
+
     callback(null, entries);
   }
 
@@ -109,7 +122,6 @@ module.exports = function(opts, callback) {
 
     toc.load,
     genDocs,
-    genHTML,
     watchContent,
     createServer
   ], callback || function() {});
