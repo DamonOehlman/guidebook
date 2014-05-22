@@ -19,20 +19,23 @@ div.menu a {
 ul.toc {
   background: white;
   overflow: hidden;
-  margin: 0;
+  margin: 0 0 25px 0;
   padding: 0;
-  height: 0px;
-
   transition: all 0.5s ease-in-out;
+  display: none;
+}
+
+ul.toc.active {
+  display: inherit;
+}
+
+ul.toc li {
+  margin-bottom: 5px;
 }
 
 ul.toc li a {
   color: navy;
   text-decoration: none;
-}
-
-ul.toc.active {
-  height: auto;
 }
 
 div.guidebook-entry {
@@ -113,6 +116,10 @@ div.content section.information {
 
 div.content section.tip {
   background: #E2F1C3;
+}
+
+div.content section.warning {
+  background: #F7D7DC;
 }
 
 /* font selection */
