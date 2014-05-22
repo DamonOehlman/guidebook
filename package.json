@@ -34,7 +34,7 @@
     "altpub-sections": "~0.2",
     "altpub-toc": "~0.1",
     "async": "~0.9",
-    "browser-module-sandbox": "^1",
+    "browser-module-sandbox": "DamonOehlman/browser-module-sandbox",
     "browserify": "^4",
     "browserify-cdn": "~0.3",
     "brucedown": "~0.1",
