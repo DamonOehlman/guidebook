@@ -6,12 +6,18 @@ var createEditor = require('javascript-editor');
 var createSandbox = require('browser-module-sandbox');
 var crel = require('crel');
 var toc = document.querySelector('.toc');
+var guideContainer = qsa('div.guidebook')[0];
 var demoContainer = document.querySelector('div.play');
 var sandbox;
 var errorBox;
 
 function closeDemo() {
   demoContainer.classList.remove('active');
+}
+
+function cycleLayout() {
+  var layout = parseInt(guideContainer.dataset.layout, 10) || 0;
+  guideContainer.dataset.layout = (layout + 1) % 3;
 }
 
 function initCodeSection(el) {
@@ -96,6 +102,8 @@ function prepareClickHandler(el, editor) {
 eve.on('guidebook.toc.show', function() {
   toc.classList.toggle('active');
 });
+
+eve.on('guidebook.cycle', cycleLayout);
 
 qsa('code.lang-js').forEach(initCodeSection);
 actionman('guidebook');

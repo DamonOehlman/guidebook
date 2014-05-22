@@ -2,6 +2,8 @@
 
 html, body {
   margin: 0;
+  width: 100vw;
+  overflow-x: hidden;
 }
 
 h1 {
@@ -14,6 +16,7 @@ div.menu {
 
 div.menu a {
   color: white;
+  padding-right: 10px;
 }
 
 ul.toc {
@@ -38,7 +41,7 @@ ul.toc li a {
   text-decoration: none;
 }
 
-div.guidebook-entry {
+div.guidebook {
   background: #333;
   overflow: hidden;
   min-height: 100vh;
@@ -120,6 +123,27 @@ div.content section.tip {
 
 div.content section.warning {
   background: #F7D7DC;
+}
+
+/* layout customizations */
+
+.guidebook[data-layout="1"] .content {
+  width: 93.5vw;
+}
+
+.guidebook[data-layout="1"] .play {
+  left: 100vw;
+}
+
+.guidebook[data-layout="2"] .content {
+  display: none;
+}
+
+.guidebook[data-layout="2"] .play {
+  left: 0vw;
+  top: 6vh;
+  height: 94vh;
+  width: 100vw;
 }
 
 /* font selection */
