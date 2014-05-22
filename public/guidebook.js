@@ -35,7 +35,8 @@ function initCodeSection(el) {
   editor = createEditor({
     container: container,
     value: el.innerText,
-    viewportMargin: Infinity
+    viewportMargin: Infinity,
+    autofocus: false
   });
 
   runButton.addEventListener('click', prepareClickHandler(pre, editor));
