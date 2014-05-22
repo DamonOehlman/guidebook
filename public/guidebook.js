@@ -46,6 +46,8 @@ function prepareClickHandler(el, editor) {
   ].join('\n');
 
   return function(evt) {
+    var button = evt.target;
+
     // if we already have a sandbox, then clean it up
     if (sandbox && sandbox.iframe) {
       sandbox.iframe.remove();
@@ -64,8 +66,10 @@ function prepareClickHandler(el, editor) {
       .on('modules', function(modules) {
       })
       .on('bundleStart', function() {
+        demoContainer.classList.add('loading');
       })
       .on('bundleEnd', function(html) {
+        demoContainer.classList.remove('loading');
         demoContainer.classList.add('active');
       });
 
