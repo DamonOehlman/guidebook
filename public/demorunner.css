@@ -1,0 +1,23 @@
+@import "fonts/fonts.css";
+
+div.democonsole {
+  background: rgba(255, 255, 255, 0.8);
+  font-family: 'Source Code Pro';
+  height: 30vh;
+  bottom: 40px;
+  border: 1px solid #888;
+  width: calc(100vw - 2px);
+}
+
+div.democonsole::before {
+  color: white;
+  content: 'console';
+  background: #555;
+  display: block;
+  height: 20px;
+  padding: 5px 20px;
+}
+
+script + div.democonsole {
+  height: calc(100vh - 40px);
+}

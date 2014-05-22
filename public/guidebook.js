@@ -65,6 +65,7 @@ function prepareClickHandler(el, editor) {
       cdn: 'http://localhost:3000',
       container: demoContainer,
       iframeStyle: 'body, html { height: 100%; width: 100%; }',
+      iframeBody: '<link rel="stylesheet" href="demorunner.css">',
       cacheOpts: {
         inMemory: true
       }
