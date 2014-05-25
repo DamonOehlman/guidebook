@@ -69,7 +69,7 @@ function prepareClickHandler(el, editor) {
     }
 
     sandbox = createSandbox({
-      cdn: 'http://localhost:3000',
+      cdn: location.origin,
       container: demoContainer,
       iframeStyle: 'body, html { height: 100%; width: 100%; }',
       iframeBody: '<link rel="stylesheet" href="demorunner.css">',
@@ -99,10 +99,12 @@ function prepareClickHandler(el, editor) {
   };
 }
 
-eve.on('guidebook.toc.show', function() {
+function showTOC() {
+  guideContainer.dataset.layout = 0;
   toc.classList.toggle('active');
-});
+}
 
+eve.on('guidebook.toc.show', showTOC);
 eve.on('guidebook.cycle', cycleLayout);
 
 qsa('code.lang-js').forEach(initCodeSection);
