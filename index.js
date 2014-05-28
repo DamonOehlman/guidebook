@@ -45,20 +45,24 @@ var out = require('out');
 **/
 
 module.exports = function(opts, callback) {
-  var cdn = require('browserify-cdn');
-  var server;
-
   // initialise the basepath
-  var basePath = (opts || {}).basePath || process.cwd();
+  var parentPath = module && module.parent && path.dirname(module.parent.filename);
+  var basePath = (opts || {}).basePath || parentPath || process.cwd();
   var bookPath = path.resolve(basePath, 'manuscript');
   var port = (opts || {}).port || process.env.NODE_PORT || 3000;
+  var server;
+
+  // create the cdn
+  var cdn = require('./cdn')({
+    basePath: basePath
+  });
 
   function createServer(entries, callback) {
-    cdn.app.use('/guidebook', require('./pages/router.js')(entries, bookPath, opts).middleware);
-    cdn.app.use('/guidebook', express.static(__dirname + '/public'));
+    cdn.use(require('./pages/router.js')(entries, bookPath, opts).middleware);
+    cdn.use(express.static(__dirname + '/public'));
     debug('creating server to serve ' + entries.length + ' entries');
 
-    callback(null, http.createServer(cdn.app), cdn);
+    callback(null, http.createServer(cdn), cdn);
   }
 
   function genDocs(entries, callback) {
