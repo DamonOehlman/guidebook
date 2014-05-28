@@ -37,7 +37,6 @@
     "browser-module-sandbox": "DamonOehlman/browser-module-sandbox",
     "browserify": "^4",
     "browserify-cdn": "~0.3",
-    "brucedown": "~0.1",
     "cors": "^2",
     "crel": "^1",
     "debug": "~0.8",

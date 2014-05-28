@@ -1,5 +1,4 @@
 var async = require('async');
-var brucedown = require('brucedown');
 var marked = require('marked');
 var debug = require('debug')('guidebook');
 var express = require('express');
