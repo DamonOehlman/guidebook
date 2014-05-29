@@ -8,6 +8,7 @@ var crel = require('crel');
 var toc = document.querySelector('.toc');
 var guideContainer = qsa('div.guidebook')[0];
 var demoContainer = document.querySelector('div.play');
+var reCaptureHostAndDir = /^(.*)\/[^\/]+$/;
 var sandbox;
 var errorBox;
 
@@ -69,7 +70,7 @@ function prepareClickHandler(el, editor) {
     }
 
     sandbox = createSandbox({
-      cdn: location.origin,
+      cdn: location.href.replace(reCaptureHostAndDir, '$1'),
       container: demoContainer,
       iframeStyle: 'body, html { height: 100%; width: 100%; }',
       iframeBody: '<link rel="stylesheet" href="demorunner.css">',
