@@ -13,13 +13,13 @@ module.exports = function(entries, bookPath, opts) {
   });
 
   router.get('/guidebook.js', function(req, res) {
-    var b = browserify(__dirname + '/../public/guidebook.js');
+    var b = browserify(__dirname + '/../public/guidebook.js', { debug: true });
 
     res.writeHead(200, {
       'Content-Type': 'application/javascript'
     });
 
-    b.bundle({ debug: true }).pipe(res);
+    b.bundle().pipe(res);
   });
 
   return router;
